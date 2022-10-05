@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:socialx/services/auth-services.dart';
+import 'package:socialx/views/home_view.dart';
 import 'package:socialx/views/landing_view.dart';
 import 'firebase_setup/firebase_options.dart';
 
@@ -18,12 +20,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
         unselectedWidgetColor: Colors.red,
       ),
-      home: const LandingView(),
-      debugShowCheckedModeBanner: false,
+      home: StreamBuilder(
+        stream: Auth().authStateChanges,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const HomeView();
+          } else {
+            return LandingView(index: 0);
+          }
+        },
+      )
     );
   }
 }

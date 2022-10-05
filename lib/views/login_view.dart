@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialx/forms/login_form.dart';
+import 'package:socialx/services/auth-services.dart';
+import 'package:socialx/views/landing_view.dart';
 import 'package:socialx/widgets/container_widgets.dart';
 import 'package:socialx/widgets/text_widgets.dart';
 
@@ -11,6 +14,27 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+
+  String? errorMessage = '';
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  void validate(){
+    if(formKey.currentState!.validate()){
+      signInWithEmailAndPassword();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +87,10 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         InkWell(
                           onTap: () {
-                            
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LandingView(index:1)),
+                            );
                           },
                           child: const RedTextnormal(
                             title: ' Register Now'
@@ -81,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
         BottomContainer(
           inkwell: InkWell(
             onTap: (() {
-              
+              validate();
             }),
             child: const BottomText(title: 'LOGIN')
           ),

@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialx/forms/register_form.dart';
+import 'package:socialx/services/auth-services.dart';
+import 'package:socialx/views/landing_view.dart';
 import 'package:socialx/widgets/container_widgets.dart';
 import 'package:socialx/widgets/text_widgets.dart';
 
@@ -12,7 +15,27 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   
+  String? errorMessage = '';
   bool checkValue = false;
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  void validate(){
+    if(formKey.currentState!.validate()){
+      createUserWithEmailAndPassword();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +100,10 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         InkWell(
                           onTap: () {
-                            
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => LandingView(index: 0)),
+                            );
                           },
                           child: const RedTextnormal(
                             title: ' Sign In!'
@@ -95,7 +121,7 @@ class _RegisterViewState extends State<RegisterView> {
         BottomContainer(
           inkwell: InkWell(
             onTap: (() {
-              
+              validate();
             }),
             child: const BottomText(title: 'REGISTER')
           ),

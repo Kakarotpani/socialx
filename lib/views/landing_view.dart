@@ -3,7 +3,8 @@ import 'package:socialx/views/login_view.dart';
 import 'package:socialx/views/register_view.dart';
 
 class LandingView extends StatefulWidget {
-  const LandingView({Key? key}) : super(key: key);
+  int index; 
+  LandingView({Key? key, required this.index}) : super(key: key);
 
   @override
   State<LandingView> createState() => _LandingViewState();
@@ -11,7 +12,6 @@ class LandingView extends StatefulWidget {
 
 class _LandingViewState extends State<LandingView> {
 
-  int index = 0;
   double diductHeight = AppBar().preferredSize.height+24;
 
   @override
@@ -67,7 +67,7 @@ class _LandingViewState extends State<LandingView> {
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height/14,
                         decoration: BoxDecoration(
-                          color: index == 0
+                          color: widget.index == 0
                           ?Colors.red
                           :Colors.white,
                           borderRadius: const BorderRadius.only(
@@ -77,9 +77,9 @@ class _LandingViewState extends State<LandingView> {
                         ),
                         child: InkWell(
                           onTap: (){
-                            if(index != 0){
+                            if(widget.index != 0){
                               setState(() {
-                                index = 0;
+                                widget.index = 0;
                               });
                             }
                           },
@@ -100,7 +100,7 @@ class _LandingViewState extends State<LandingView> {
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height/14,
                         decoration: BoxDecoration(
-                          color: index == 1
+                          color: widget.index == 1
                           ?Colors.red
                           :Colors.white,
                           borderRadius: const BorderRadius.only(
@@ -110,9 +110,9 @@ class _LandingViewState extends State<LandingView> {
                         ),
                         child: InkWell(
                           onTap: (){
-                            if(index == 0){
+                            if(widget.index == 0){
                               setState(() {
-                                index = 1;
+                                widget.index = 1;
                               });
                             }
                           },
@@ -132,7 +132,7 @@ class _LandingViewState extends State<LandingView> {
               ),
               const SizedBox(height: 14),
               Expanded(
-                child: index == 0
+                child: widget.index == 0
                 ? const LoginView()
                 : const RegisterView(),
               )
