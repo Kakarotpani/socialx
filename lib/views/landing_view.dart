@@ -131,45 +131,11 @@ class _LandingViewState extends State<LandingView> {
                 ),
               ),
               const SizedBox(height: 14),
-              Container(
-                height: MediaQuery.of(context).size.height/1.38,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-                  child: index == 0
-                  ? const LoginView()
-                  : const RegisterView(),
-                ),
-              ),
-              const Spacer(),
-              Container(
-                height: MediaQuery.of(context).size.height/14,
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    index == 0
-                    ? 'LOGIN'
-                    : 'REGISTER',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5
-                    ),
-                  ),
-                )
-              ),
+              Expanded(
+                child: index == 0
+                ? const LoginView()
+                : const RegisterView(),
+              )
             ],
           )
         ),

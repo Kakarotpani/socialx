@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:socialx/forms/login_form.dart';
+import 'package:socialx/widgets/container_widgets.dart';
 import 'package:socialx/widgets/text_widgets.dart';
 
 class LoginView extends StatefulWidget {
@@ -13,44 +12,78 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const RedTextTitle(title: 'SignIn into your'),
-        const RedTextTitle(title: ' Account'),
-        const LoginForm(),
-        Container(
-          alignment: Alignment.centerRight,
-          padding: const EdgeInsets.only(right: 12, bottom: 30),
-          child: const RedTextnormal(title: 'Forgot Password ?'),
-        ),
-        Container(
-          height: 100,
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        MainContainer(
+          column: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Login With',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
+              const RedTextTitle(title: 'SignIn into your'),
+              const RedTextTitle(title: ' Account'),
+              const LoginForm(),
+              Container(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.only(right: 12, bottom: 30),
+                child: const RedTextnormal(title: 'Forgot Password ?'),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Don\'t have an Account ? ',
-                    style: TextStyle(
-                      fontSize: 14
+              Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text('Login With',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  RedTextnormal(title: ' Register Now')
-                ],
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: (){},
+                          child: Image.asset('assets/images/google_logo.png', scale: 64)
+                        ),
+                        const SizedBox(width: 60),
+                        InkWell(
+                          child: Image.asset('assets/images/facebook_logo.png', scale: 30)
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Don\'t have an Account ? ',
+                          style: TextStyle(
+                            fontSize: 14
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            
+                          },
+                          child: const RedTextnormal(
+                            title: ' Register Now'
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               )
             ],
+          ),
+        ),
+        const Spacer(),
+        BottomContainer(
+          inkwell: InkWell(
+            onTap: (() {
+              
+            }),
+            child: const BottomText(title: 'LOGIN')
           ),
         )
       ],
